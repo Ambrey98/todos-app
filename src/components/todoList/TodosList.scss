@@ -1,0 +1,13 @@
+.todos-list-container {
+  width: 50%;
+  margin-top: 3em;
+  border: 2px solid rgba(128, 128, 128, 0.181);
+  box-shadow: 6px 6px 6px gray;
+
+  ul {
+    li {
+      list-style: none;
+      margin-top: 0.3em;
+    }
+  }
+}

@@ -1,0 +1,56 @@
+@import "../../global";
+
+.todo-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1em;
+
+  .item-name {
+    width: 60%;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: rgba(253, 246, 246, 0.272);
+  }
+
+  .edit-name {
+    border: none;
+    border-radius: 0.5em;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .modify-items {
+    .btn {
+      border: none;
+      border-radius: 1em;
+      font-size: 1em;
+      padding: 0.5em;
+      width: 75px;
+      color: white;
+
+      &-edit-item {
+        background-color: rgba(25, 188, 25, 0.839);
+      }
+
+      &-edit-item:hover {
+        cursor: pointer;
+        background-color: rgb(91, 225, 91);
+      }
+
+      &-delete-item {
+        background-color: rgb(213, 27, 27);
+      }
+
+      &-delete-item:hover {
+        cursor: pointer;
+        background-color: rgb(237, 59, 59);
+      }
+    }
+  }
+}
+
+.error-message {
+  color: $error-message-color;
+}

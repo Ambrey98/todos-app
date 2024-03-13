@@ -1,25 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Main from "./components/Main";
+import { TodoProvider } from "./context";
+import useLocalStorage from "./hooks/useLocalStorage";
+import { TodoType } from "./types";
 
 function App() {
+  const [todos, setTodos] = useLocalStorage("todos", []);
+
+  const addTodo = (todo: TodoType) => {
+    const todosCopied: TodoType[] = [...todos];
+
+    const newTodo: TodoType = {
+      id: Date.now(),
+      name: todo.name,
+      completed: false,
+    };
+
+    todosCopied.push(newTodo);
+    setTodos(todosCopied);
+  };
+
+  const updateTodo = (id: number, todo: TodoType) => {
+    const todosCopied: TodoType[] = [...todos];
+    const indexToUpdateAt = todosCopied.findIndex(
+      (todo: TodoType) => todo.id === id
+    );
+
+    if (indexToUpdateAt >= 0) {
+      todosCopied[indexToUpdateAt] = todo;
+      setTodos(todosCopied);
+    } else {
+      return;
+    }
+  };
+
+  const deleteTodo = (id: number) => {
+    const todosFiltered = todos.filter((todo: TodoType) => todo.id !== id);
+    setTodos(todosFiltered);
+  };
+
+  const toggleComplete = (id: number) => {
+    const todosCopied: TodoType[] = [...todos];
+    const indexToUpdateAt = todosCopied.findIndex(
+      (todo: TodoType) => todo.id === id
+    );
+
+    if (indexToUpdateAt) {
+      todosCopied[indexToUpdateAt].completed = true;
+      setTodos(todosCopied);
+    } else {
+      return;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TodoProvider
+      value={{ todos, addTodo, deleteTodo, updateTodo, toggleComplete }}
+    >
+      <Main />
+    </TodoProvider>
   );
 }
 
