@@ -1,6 +1,6 @@
 @import "../../global";
 
-.todo-items {
+.todo-item {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -21,7 +21,7 @@
     text-align: center;
   }
 
-  .modify-items {
+  .modify-item {
     .btn {
       border: none;
       border-radius: 1em;

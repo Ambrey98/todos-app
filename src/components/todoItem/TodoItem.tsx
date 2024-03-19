@@ -42,6 +42,8 @@ export default function TodoItem(props: TodoItemProps) {
           setErrorMsg("");
         }, 3000);
         return () => clearTimeout(errorMsgTimeout);
+      } else {
+        return;
       }
     }
   }, [editing]);
@@ -49,31 +51,34 @@ export default function TodoItem(props: TodoItemProps) {
   return (
     <>
       {errorMsg && <p className="error-message">{errorMsg}</p>}
-      <div className="todo-items">
+      <div className="todo-item" data-testid="todo-item">
         <div className="item-name">
-          {!editing && todo.name}
+          {!editing && <span data-testid="todo-name">{todo.name}</span>}
           {editing && (
             <input
               type="text"
               className="edit-name"
+              data-testid="modify-todo-input"
               value={todoName}
               onChange={onChangeTodoName}
               onKeyDown={onPressEnterInput}
             />
           )}
         </div>
-        <div className="modify-items">
+        <div className="modify-item">
           <button
             className="btn btn-edit-item"
+            data-testid="edit-button"
             onClick={() => setEditing(!editing)}
           >
             {editing ? "Save" : "Edit"}
           </button>{" "}
           <button
             className="btn btn-delete-item"
+            data-testid="delete-button"
             onClick={() => deleteTodo(todo.id)}
           >
-            delete
+            Delete
           </button>
         </div>
       </div>

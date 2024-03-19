@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTodo } from "../../context";
 import { TodoType } from "../../types";
 import "./AddTodo.scss";
@@ -20,7 +20,7 @@ export default function AddTodo() {
       };
 
       addTodo(newTodo);
-      // setErrorMsg("");
+      setTodoName("");
     } else {
       setErrorMsg("Item already exists in the todos list.");
     }
@@ -40,12 +40,23 @@ export default function AddTodo() {
         type="text"
         name="item-input"
         placeholder="Add new item..."
-        onChange={(e) => setTodoName(e.target.value)}
+        onChange={(e) => {
+          setTodoName(e.target.value);
+        }}
+        value={todoName}
       />
-      <button className="btn btn--add" onClick={onAddNewItem}>
+      <button
+        className="btn btn--add"
+        onClick={onAddNewItem}
+        data-testid="add-button"
+      >
         +
       </button>
-      {errorMsg && <p className="error-message">{errorMsg}</p>}
+      {errorMsg && (
+        <p className="error-message" data-testid="error-message">
+          {errorMsg}
+        </p>
+      )}
     </div>
   );
 }
